@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/BlogPost.astro';
+import { languages } from '../../i18n/ui';
+import aboutImage from '../../assets/blog-placeholder-about.jpg';
+import Terminal from '../../components/Terminal.astro';
+import { Image } from 'astro:assets';
+
+export function getStaticPaths() {
+	return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+
+const content = {
+	en: {
+		p1: "I am a passionate Back-End Developer and Data Engineer.",
+        techTitle: "Tech Stack & Tools"
+	},
+	pl: {
+		p1: "Jestem Programistą Back-End oraz Inżynierem Danych",
+        techTitle: "Technologie i Narzędzia"
+	}
+};
+
+const t = content[lang as keyof typeof content];
+---
+
+<Layout
+	title={lang === 'pl' ? 'Witaj' : 'Welcome'}
+	description={lang === 'pl' ? 'O mnie' : 'About Me'}
+>
+    <div class="about-container">
+        <section class="intro fade-in">
+            <Image src={aboutImage} alt="Szymon Pucher" class="profile-img" width={300} density={2} />
+            <p class="lead">{t.p1}</p>
+            <p>{t.p2}</p>
+            <p>{t.p3}</p>
+        </section>
+
+        <section class="tech-stack fade-in delay-2">
+            <h3>{t.techTitle}</h3>
+            <div class="tech-grid">
+                <div class="tech-item">🐍 Python</div>
+                <div class="tech-item">⚡ Spark</div>
+                <div class="tech-item">🏗️ Terraform</div>
+                <div class="tech-item">🐳 Docker</div>
+                <div class="tech-item">🛡️ Pydantic</div>
+                <div class="tech-item">☁️ AWS</div>
+                <div class="tech-item">🗄️ SQL</div>
+                <div class="tech-item">🚀 Astro</div>
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style>
+    .about-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .profile-img {
+        float: left;
+        margin-right: 2rem;
+        margin-bottom: 0.5rem;
+        border-radius: 12px;
+        width: 240px;
+        height: auto;
+        box-shadow: var(--box-shadow);
+    }
+
+    .lead {
+        font-size: 1.1em;
+        font-weight: 500;
+        color: var(--black);
+    }
+
+    @media (max-width: 600px) {
+        .profile-img {
+            float: none;
+            display: block;
+            margin: 0 auto 1.5rem auto;
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+
+    /* Syntax Highlighting Sim */
+    .keyword { color: #569cd6; }
+    .string { color: #ce9178; }
+    .class-name { color: #4ec9b0; }
+    .function { color: #dcdcaa; }
+    .number { color: #b5cea8; }
+
+    /* Tech Grid */
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .tech-item {
+        background: #f4f4f4;
+        padding: 0.8rem;
+        text-align: center;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: transform 0.2s, background 0.2s;
+        cursor: default;
+    }
+    .tech-item:hover {
+        transform: translateY(-5px);
+        background: #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Animations */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .delay-1 { animation-delay: 0.3s; }
+    .delay-2 { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
