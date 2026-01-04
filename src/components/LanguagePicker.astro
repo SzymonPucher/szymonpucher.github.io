@@ -1,0 +1,81 @@
+---
+import { languages } from '../i18n/ui';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const pathParts = Astro.url.pathname.split('/').filter(Boolean);
+
+// If first part is lang, remove it.
+if (pathParts[0] in languages) {
+    pathParts.shift();
+}
+const canonicalPath = pathParts.join('/');
+
+const flags = {
+  en: '🇬🇧',
+  pl: '🇵🇱',
+};
+---
+<ul class="language-picker">
+  {Object.entries(languages).map(([l, label]) => (
+    <li>
+      <a href={`/${l}/${canonicalPath}`} aria-label={label} class={l === lang ? 'active' : ''}>
+        {l === 'en' && (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12">
+            <clipPath id="s">
+                <path d="M0,0 v30 h60 v-30 z"/>
+            </clipPath>
+            <clipPath id="t">
+                <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+            </clipPath>
+            <g clip-path="url(#s)">
+                <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
+                <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+                <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+            </g>
+            </svg>
+        )}
+        {l === 'pl' && (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10" width="24" height="15">
+            <rect width="16" height="10" fill="#fff"/>
+            <rect y="5" width="16" height="5" fill="#dc143c"/>
+            <rect width="16" height="10" fill="none" stroke="#ddd" stroke-width="0.5"/>
+            </svg>
+        )}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+    .language-picker {
+        display: flex;
+        gap: 0.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+    }
+    .language-picker a {
+        display: block;
+        line-height: 0;
+        opacity: 0.5;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .language-picker a:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+    .language-picker a.active {
+        opacity: 1;
+        transform: scale(1.1);
+        box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        border-radius: 2px;
+    }
+    svg {
+        display: block;
+        border-radius: 2px;
+    }
+</style>
