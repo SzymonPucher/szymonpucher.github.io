@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.1.1...szymonpucher-portfolio-v0.2.0) (2026-01-04)
+
+
+### Features
+
+* include version in the footer ([7eb8a57](https://github.com/SzymonPucher/szymonpucher.github.io/commit/7eb8a572baefc47d7fbe9693890ef831e635be9a))
+* include version in the footer ([ce59ab8](https://github.com/SzymonPucher/szymonpucher.github.io/commit/ce59ab8fcdb6ccaca900dce3a6be8ccb8685c0f1))
+
 ## [0.1.1](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.1.0...szymonpucher-portfolio-v0.1.1) (2026-01-04)
 
 
