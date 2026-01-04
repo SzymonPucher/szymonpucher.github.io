@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.1.0...szymonpucher-portfolio-v0.1.1) (2026-01-04)
+
+
+### Bug Fixes
+
+* upgrade deprecated release-please action ([719f4aa](https://github.com/SzymonPucher/szymonpucher.github.io/commit/719f4aadafe9476eccd753166e0abef5825e75b9))
+* upgrade deprecated release-please action ([5046aab](https://github.com/SzymonPucher/szymonpucher.github.io/commit/5046aab469a28e426a531483e88b60a10ce1e41f))
+
 ## [0.1.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.0.1...szymonpucher-portfolio-v0.1.0) (2026-01-04)
 
 
