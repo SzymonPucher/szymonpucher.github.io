@@ -13,15 +13,11 @@ const { lang } = Astro.params;
 
 const content = {
 	en: {
-		p1: "I am a passionate Back-End Developer and Data Engineer with a deep love for solving complex problems. Specializing in Big Data ecosystems, I thrive on designing scalable architectures and optimizing data pipelines.",
-		p2: "My journey began with a curiosity about how systems work under the hood. Today, that curiosity drives me to build robust systems that can handle massive scale. I enjoy the challenge of turning chaotic data streams into structured, actionable insights.",
-		p3: "Beyond the code, I am an advocate for clean architecture and efficient algorithms. I believe that the best solutions are not just functional, but also elegant and maintainable. I'm always looking for the next interesting problem to solve.",
+		p1: "I am a passionate Back-End Developer and Data Engineer.",
         techTitle: "Tech Stack & Tools"
 	},
 	pl: {
-		p1: "Jestem pasjonatem programowania Back-End oraz Inżynierii Danych, który uwielbia rozwiązywać złożone problemy. Specjalizuję się w ekosystemach Big Data, projektując skalowalne architektury i optymalizując potoki danych.",
-		p2: "Moja podróż rozpoczęła się od ciekawości, jak systemy działają od środka. Dziś ta ciekawość napędza mnie do budowania solidnych rozwiązań, które radzą sobie z ogromną skalą. Czerpię satysfakcję z przekształcania chaotycznych strumieni danych w uporządkowane, wartościowe informacje.",
-		p3: "Poza kodem, jestem orędownikiem czystej architektury i wydajnych algorytmów. Wierzę, że najlepsze rozwiązania są nie tylko funkcjonalne, ale także eleganckie i łatwe w utrzymaniu. Zawsze szukam kolejnego ciekawego problemu do rozwiązania.",
+		p1: "Jestem Programistą Back-End oraz Inżynierem Danych",
         techTitle: "Technologie i Narzędzia"
 	}
 };
@@ -32,7 +28,6 @@ const t = content[lang as keyof typeof content];
 <Layout
 	title={lang === 'pl' ? 'Witaj' : 'Welcome'}
 	description={lang === 'pl' ? 'O mnie' : 'About Me'}
-	pubDate={new Date('December 18 2025')}
 >
     <div class="about-container">
         <section class="intro fade-in">
@@ -41,7 +36,6 @@ const t = content[lang as keyof typeof content];
             <p>{t.p2}</p>
             <p>{t.p3}</p>
         </section>
-
 
         <section class="tech-stack fade-in delay-2">
             <h3>{t.techTitle}</h3>
