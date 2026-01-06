@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/BlogPost.astro';
+import { languages } from '../../i18n/ui';
+
+export function getStaticPaths() {
+	return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+
+const content = {
+	en: {
+		title: "Contact",
+		description: "Get in touch",
+        intro: "Feel free to reach out to me via email for any inquiries or collaborations.",
+        emailLabel: "Email:",
+        socialLabel: "You can also find me on:",
+        secureEmailMsg: "(Click to show email)"
+	},
+	pl: {
+		title: "Kontakt",
+		description: "Skontaktuj się ze mną",
+        intro: "Zapraszam do kontaktu mailowego w sprawie współpracy lub zapytań.",
+        emailLabel: "Email:",
+        socialLabel: "Znajdziesz mnie również na:",
+        secureEmailMsg: "(Kliknij, aby zobaczyć email)"
+	}
+};
+
+const t = content[lang as keyof typeof content];
+---
+
+<Layout
+	title={t.title}
+	description={t.description}
+>
+    <div class="contact-container fade-in">
+        <p class="intro">{t.intro}</p>
+        
+        <div class="contact-method">
+            <h3>{t.emailLabel}</h3>
+            <div id="email-container" class="email-placeholder">
+                <button id="reveal-email-btn" class="reveal-btn">{t.secureEmailMsg}</button>
+            </div>
+        </div>
+
+        <div class="social-methods">
+            <h3>{t.socialLabel}</h3>
+            <div class="social-icons">
+                <a href="https://github.com/szymonpucher" target="_blank" class="social-link">
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/spucher" target="_blank" class="social-link">
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script>
+    const user = 'pucherszymon';
+    const domain = 'gmail.com';
+    const email = `${user}@${domain}`;
+    
+    const btn = document.getElementById('reveal-email-btn');
+    const container = document.getElementById('email-container');
+
+    if (btn && container) {
+        btn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = `mailto:${email}`;
+            link.textContent = email;
+            link.className = 'email-link';
+            
+            container.innerHTML = '';
+            container.appendChild(link);
+        });
+    }
+</script>
+
+<style>
+    .contact-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding: 0.5rem 0 2rem 0;
+    }
+
+    .intro {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-top: 0;
+    }
+
+    .contact-method, .social-methods {
+        background: rgba(var(--gray-light), 30%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: rgb(var(--gray-dark));
+    }
+
+    .reveal-btn {
+        background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .reveal-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(220,20,60,0.3);
+    }
+
+    .email-link {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        background: linear-gradient(135deg, #dc143c 0%, #8b0000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .social-link {
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.5rem 1.5rem;
+        color: white;
+        background: linear-gradient(135deg, #444 0%, #222 100%);
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .social-link[href*="github"]:hover {
+        background: linear-gradient(135deg, #333 0%, #000 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .social-link[href*="linkedin"] {
+        background: linear-gradient(135deg, #0077b5 0%, #004182 100%);
+    }
+
+    .social-link[href*="linkedin"]:hover {
+        background: linear-gradient(135deg, #008ad1 0%, #0059b3 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,119,181,0.3);
+    }
+
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+</style>
