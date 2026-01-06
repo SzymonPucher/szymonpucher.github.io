@@ -10,7 +10,10 @@ const t = useTranslations(lang);
 
 <header>
 	<nav>
-		<h2><a href={`/${lang}/`}>{SITE_TITLE}</a></h2>
+		<div class="title-wrapper">
+			<h2><a href={`/${lang}/`}>{SITE_TITLE}</a></h2>
+			<span class="tagline">Building maintainable software quickly.</span>
+		</div>
 		<div class="internal-links">
 			<HeaderLink href={`/${lang}/`}>{t('nav.home')}</HeaderLink>
 			<HeaderLink href={`/${lang}/projects`}>{t('nav.projects')}</HeaderLink>
@@ -51,12 +54,24 @@ const t = useTranslations(lang);
 	}
 	h2 {
 		margin: 0;
-		font-size: 1em;
+		font-size: 1.5em;
 	}
-
-	h2 a,
-	h2 a.active {
+	.title-wrapper {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.2;
+		padding: 1em 0;
+		align-items: flex-start;
+	}
+	.tagline {
+		font-size: 0.7em;
+		color: rgb(var(--gray));
+		font-weight: 500;
+	}
+	nav h2 a,
+	nav h2 a.active {
 		text-decoration: none;
+		padding: 0;
 	}
 	nav {
 		display: flex;
@@ -82,15 +97,23 @@ const t = useTranslations(lang);
 	.social-links a {
 		display: flex;
 	}
-	@media (max-width: 720px) {
+	@media (max-width: 800px) {
 		nav {
 			flex-wrap: wrap;
+			justify-content: center;
 		}
-		h2 {
+		.title-wrapper {
 			order: 1;
+			width: 100%;
+			align-items: center;
+			text-align: center;
+			padding-bottom: 0.5em;
 		}
 		.right-section {
 			order: 2;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
 		}
 		.internal-links {
 			order: 3;
@@ -100,21 +123,6 @@ const t = useTranslations(lang);
 		}
 		.social-links {
 			/* display: none; */
-		}
-	}
-	@media (max-width: 400px) {
-		nav {
-			justify-content: center;
-		}
-		h2,
-		.right-section {
-			width: 100%;
-			justify-content: center;
-			text-align: center;
-		}
-		h2 {
-			margin-top: 1em;
-			margin-bottom: 0.5em;
 		}
 	}
 </style>
