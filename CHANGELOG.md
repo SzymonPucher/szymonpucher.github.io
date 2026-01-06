@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.2.0...szymonpucher-portfolio-v0.3.0) (2026-01-06)
+
+
+### Features
+
+* add contact page ([10da596](https://github.com/SzymonPucher/szymonpucher.github.io/commit/10da596da0332794b40ea733d96d694f6149bc5d))
+
+
+### Bug Fixes
+
+* improve how header is displayed on smaller screens ([1fa3348](https://github.com/SzymonPucher/szymonpucher.github.io/commit/1fa33483b5a54a74923c219af4a150932007b7a3))
+
 ## [0.2.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.1.1...szymonpucher-portfolio-v0.2.0) (2026-01-04)
 
 
