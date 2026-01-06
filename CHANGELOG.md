@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.3.0...szymonpucher-portfolio-v0.4.0) (2026-01-06)
+
+
+### Features
+
+* add color to Tech Stack tiles ([37a54db](https://github.com/SzymonPucher/szymonpucher.github.io/commit/37a54db851fdcb3b29674576dc0fe587d6d9aa29))
+* add tagline in the header ([d687be5](https://github.com/SzymonPucher/szymonpucher.github.io/commit/d687be527171f26bb80caa1873200fef335b6776))
+* add tooltips to tech stack ([7099319](https://github.com/SzymonPucher/szymonpucher.github.io/commit/709931949d3646e6cbac9f66bb902c2342a3c159))
+* update tech stack ([93dc557](https://github.com/SzymonPucher/szymonpucher.github.io/commit/93dc5578a45b9f23b4efbb5dfc5267928e9d6817))
+
+
+### Bug Fixes
+
+* apply correct azure logo ([5cdbc3c](https://github.com/SzymonPucher/szymonpucher.github.io/commit/5cdbc3cf448f5250ec01e19682152714fbc7abb8))
+
 ## [0.3.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.2.0...szymonpucher-portfolio-v0.3.0) (2026-01-06)
 
 
