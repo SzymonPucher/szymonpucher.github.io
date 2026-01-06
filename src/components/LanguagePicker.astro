@@ -1,8 +1,9 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { languages } from '../i18n/ui';
-import { getLangFromUrl } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const pathParts = Astro.url.pathname.split('/').filter(Boolean);
 
 // If first part is lang, remove it.
@@ -10,46 +11,66 @@ if (pathParts[0] in languages) {
     pathParts.shift();
 }
 const canonicalPath = pathParts.join('/');
-
-const flags = {
-  en: '🇬🇧',
-  pl: '🇵🇱',
-};
 ---
-<ul class="language-picker">
-  {Object.entries(languages).map(([l, label]) => (
-    <li>
-      <a href={`/${l}/${canonicalPath}`} aria-label={label} class={l === lang ? 'active' : ''}>
-        {l === 'en' && (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12">
-            <clipPath id="s">
-                <path d="M0,0 v30 h60 v-30 z"/>
-            </clipPath>
-            <clipPath id="t">
-                <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
-            </clipPath>
-            <g clip-path="url(#s)">
-                <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
-                <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
-                <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
-                <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
-            </g>
-            </svg>
-        )}
-        {l === 'pl' && (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10" width="24" height="15">
-            <rect width="16" height="10" fill="#fff"/>
-            <rect y="5" width="16" height="5" fill="#dc143c"/>
-            <rect width="16" height="10" fill="none" stroke="#ddd" stroke-width="0.5"/>
-            </svg>
-        )}
-      </a>
-    </li>
-  ))}
-</ul>
+<div class="language-picker-container">
+    <span class="language-label">{t('nav.language')}</span>
+    <ul class="language-picker">
+    {Object.entries(languages).map(([l, label]) => (
+        <li>
+        <a href={`/${l}/${canonicalPath}`} aria-label={label} class={l === lang ? 'active' : ''}>
+            {l === 'en' && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12">
+                <clipPath id="s">
+                    <path d="M0,0 v30 h60 v-30 z"/>
+                </clipPath>
+                <clipPath id="t">
+                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+                </clipPath>
+                <g clip-path="url(#s)">
+                    <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                    <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
+                    <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+                    <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+                </g>
+                </svg>
+            )}
+            {l === 'pl' && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10" width="24" height="15">
+                <rect width="16" height="10" fill="#fff"/>
+                <rect y="5" width="16" height="5" fill="#dc143c"/>
+                <rect width="16" height="10" fill="none" stroke="#ddd" stroke-width="0.5"/>
+                </svg>
+            )}
+        </a>
+        </li>
+    ))}
+    </ul>
+</div>
 
 <style>
+    .language-picker-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        padding: 4px 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    .language-picker-container:hover {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    .language-label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: rgb(var(--gray));
+        margin-bottom: 4px;
+    }
     .language-picker {
         display: flex;
         gap: 0.5rem;
