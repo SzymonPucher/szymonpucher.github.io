@@ -2,7 +2,6 @@
 import Layout from '../../layouts/BlogPost.astro';
 import { languages } from '../../i18n/ui';
 import aboutImage from '../../assets/blog-placeholder-about.jpg';
-import Terminal from '../../components/Terminal.astro';
 import { Image } from 'astro:assets';
 
 export function getStaticPaths() {
@@ -31,10 +30,8 @@ const t = content[lang as keyof typeof content];
 >
     <div class="about-container">
         <section class="intro fade-in">
-            <Image src={aboutImage} alt="Szymon Pucher" class="profile-img" width={300} density={2} />
+            <Image src={aboutImage} alt="Szymon Pucher" class="profile-img" width={300} />
             <p class="lead">{t.p1}</p>
-            <p>{t.p2}</p>
-            <p>{t.p3}</p>
         </section>
 
         <section class="tech-stack fade-in delay-2">
