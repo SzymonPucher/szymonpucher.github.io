@@ -3,6 +3,8 @@ import Layout from '../../layouts/BlogPost.astro';
 import { languages } from '../../i18n/ui';
 import aboutImage from '../../assets/blog-placeholder-about.jpg';
 import { Image } from 'astro:assets';
+import IntroEn from '../../components/intro/IntroEn.md';
+import IntroPl from '../../components/intro/IntroPl.md';
 
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -10,14 +12,16 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 
+const Intro = lang === 'pl' ? IntroPl : IntroEn;
+
 const content = {
 	en: {
-		p1: "I am a passionate Back-End Developer and Data Engineer.",
-        techTitle: "Tech Stack & Tools"
+        techTitle: "Tech Stack",
+        techInstruction: "Hover on tiles below for more context."
 	},
 	pl: {
-		p1: "Jestem Programistą Back-End oraz Inżynierem Danych",
-        techTitle: "Technologie i Narzędzia"
+        techTitle: "Technologie",
+        techInstruction: "Najedź na kafelki poniżej, aby uzyskać więcej informacji"
 	}
 };
 
@@ -25,17 +29,30 @@ const t = content[lang as keyof typeof content];
 ---
 
 <Layout
-	title={lang === 'pl' ? 'Witaj' : 'Welcome'}
+	title={lang === 'pl' ? 'Cześć. Jestem Szymon.' : "Hi. I'm Szymon."}
 	description={lang === 'pl' ? 'O mnie' : 'About Me'}
 >
+    <h1 slot="title">
+        {lang === 'pl' ? (
+            'Cześć. Jestem Szymon.'
+        ) : (
+            <>
+                Hi. I'm <span class="alternating-name">Szymon.</span>
+            </>
+        )}
+    </h1>
+
     <div class="about-container">
         <section class="intro fade-in">
             <Image src={aboutImage} alt="Szymon Pucher" class="profile-img" width={300} />
-            <p class="lead">{t.p1}</p>
+            <div class="lead">
+                <Intro />
+            </div>
         </section>
 
         <section class="tech-stack fade-in delay-2">
             <h3 class="tech-title">{t.techTitle}</h3>
+            <p class="tech-instruction">{t.techInstruction}</p>
             
             <div class="tech-category">
                 <div class="tech-grid">
@@ -45,7 +62,8 @@ const t = content[lang as keyof typeof content];
                             <span class="tooltip-text">
                                 My primary language for since 2017.<br /><br />
                                 Led creation of multiple Python-based software components from idea to maintaince in production environment.<br /><br />
-                                Built my software engineering and data engineering career with it.
+                                Built my software engineering and data engineering career with it.<br /><br />
+                                I'm not "married to Python" though. I enjoy working with different languages too.
                             </span>
                         </div>
                     </div>
@@ -53,7 +71,14 @@ const t = content[lang as keyof typeof content];
                         <svg viewBox="0 0 24 24" height="1.2em" style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg"> <path d="m23.826 17.316-4.23-5.866-6.847-9.496c-.348-.48-1.151-.48-1.497 0l-6.845 9.494-4.233 5.868a.925.925 0 0 0 .46 1.417l11.078 3.626h.002a.92.92 0 0 0 .572 0h.002l11.077-3.626c.28-.092.5-.31.59-.592a.916.916 0 0 0-.13-.825h.002ZM12.001 4.07l4.44 6.158-4.152-1.36c-.032-.01-.066-.008-.098-.016a.8.8 0 0 0-.096-.016c-.032-.004-.062-.016-.094-.016s-.062.012-.094.016a.74.74 0 0 0-.096.016c-.032.006-.066.006-.096.016L7.59 10.221l-.026.008 4.44-6.158h-.002Zm-6.273 8.7 4.834-1.583.516-.168v9.19L2.41 17.372l3.317-4.6Zm7.197 7.437V11.02l5.35 1.752 3.316 4.598-8.666 2.838Z" fill="#E92063"/> </svg> Pydantic
                         <div class="tooltip">
                             <span class="tooltip-text">
-                                Extensive usage for data validation, settings management (ConfZ), API development (FastAPI), and ORM (SQLModel) in Python projects.<br /><br />
+                                Extensive usage for:
+                                <ul>
+                                    <li>data validation</li>
+                                    <li>settings management (ConfZ)</li>
+                                    <li>REST API development (FastAPI)</li>
+                                    <li>ORM (SQLModel)</li>
+                                </ul>
+
                                 Essential part of my stack.
                             </span>
                         </div>
@@ -159,7 +184,58 @@ const t = content[lang as keyof typeof content];
     </div>
 </Layout>
 
+<script>
+    const names = ["Szymon.", "Simon."];
+    const element = document.querySelector('.alternating-name');
+    let nameIndex = 0;
+
+    function animate() {
+        if (!element) return;
+        
+        // Slide out to top
+        element.classList.add('slide-out');
+        
+        setTimeout(() => {
+            // Change text
+            nameIndex = (nameIndex + 1) % names.length;
+            element.textContent = names[nameIndex];
+            
+            // Prepare for slide in (move to bottom instantly)
+            element.classList.remove('slide-out');
+            element.classList.add('prepare-slide-in');
+            
+            // Force reflow
+            void (element as HTMLElement).offsetWidth;
+            
+            // Slide in to center
+            element.classList.remove('prepare-slide-in');
+        }, 500); // Match transition duration
+    }
+
+    // Start animation loop
+    setInterval(animate, 3000);
+</script>
+
 <style>
+    .alternating-name {
+        display: inline-block;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        opacity: 1;
+        transform: translateY(0);
+        width: 4em;
+        text-align: left;
+    }
+
+    .slide-out {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    .prepare-slide-in {
+        transition: none;
+        transform: translateY(20px);
+        opacity: 0;
+    }
     .about-container {
         display: flex;
         flex-direction: column;
@@ -177,7 +253,7 @@ const t = content[lang as keyof typeof content];
     }
 
     .lead {
-        font-size: 1.1em;
+        font-size: 0.8em;
         font-weight: 500;
         color: var(--black);
     }
@@ -201,7 +277,13 @@ const t = content[lang as keyof typeof content];
 
     /* Tech Grid */
     .tech-title {
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    .tech-instruction {
+        font-size: 0.75rem;
+        color: rgb(var(--gray));
+        margin-bottom: 0.7rem;
+        font-style: italic;
     }
     .tech-category {
         margin-bottom: 1rem;
@@ -274,20 +356,8 @@ const t = content[lang as keyof typeof content];
     .tech-item:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        background: #ffffff linear-gradient(to right, #C04848, #480048) no-repeat top / 100% 10%;
     }
-
-    /* Brand Color Gradients */
-    .tech-item.blue { background: linear-gradient(160deg, #e3f2fd89 0%, #ffffff 100%); border-color: #bbdefb; }
-    .tech-item.blue:hover { background: linear-gradient(340deg, #e3f2fd 0%, #ffffff 100%); }
-
-    .tech-item.green { background: linear-gradient(160deg, #e8f5e989 0%, #ffffff 100%); border-color: #c8e6c9; }
-    .tech-item.green:hover { background: linear-gradient(340deg, #e8f5e9 0%, #ffffff 100%); }
-
-    .tech-item.red { background: linear-gradient(160deg, #ffebee89 0%, #ffffff 100%); border-color: #ffcdd2; }
-    .tech-item.red:hover { background: linear-gradient(340deg, #ffebee 0%, #ffffff 100%); }
-
-    .tech-item.orange { background: linear-gradient(160deg, #fce1b489 0%, #ffffff 100%); border-color: #ffe0b2; }
-    .tech-item.orange:hover { background: linear-gradient(340deg, #fce1b4 0%, #ffffff 100%); }
 
     /* Animations */
     .fade-in {
