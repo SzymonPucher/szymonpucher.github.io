@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.4.0...szymonpucher-portfolio-v0.5.0) (2026-01-07)
+
+
+### Features
+
+* make name alternating and add content to about page ([4e66489](https://github.com/SzymonPucher/szymonpucher.github.io/commit/4e6648976321dd0383dab7d4e5b11d6229aae3a9))
+* make name alternating and add content to about page ([0cf730e](https://github.com/SzymonPucher/szymonpucher.github.io/commit/0cf730e519c2e5f19f3b1a125249d097fd1970b9))
+
 ## [0.4.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.3.0...szymonpucher-portfolio-v0.4.0) (2026-01-06)
 
 
