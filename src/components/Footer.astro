@@ -25,7 +25,7 @@ import { version } from '../../package.json';
             </a>
         </div>
         <div class="version">
-            v{version}
+            <a href={`https://github.com/SzymonPucher/szymonpucher.github.io/releases`} target="_blank">v{version}</a>
         </div>
     </div>
 </footer>
@@ -61,6 +61,13 @@ import { version } from '../../package.json';
         opacity: 0.6;
         position: absolute;
         right: 0;
+    }
+    .version a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .version a:hover {
+        text-decoration: underline;
     }
     @media (max-width: 600px) {
         .footer-content {
