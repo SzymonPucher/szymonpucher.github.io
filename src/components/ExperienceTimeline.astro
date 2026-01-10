@@ -1,0 +1,194 @@
+---
+import csLogo from '../assets/credit_suisse.svg';
+import ubsLogo from '../assets/ubs.svg';
+
+interface Props {
+    experience: {
+        company: string;
+        role: string;
+        period: string;
+        description: string;
+    }[];
+    lang: string;
+}
+
+const { experience, lang } = Astro.props;
+---
+
+<div class="timeline">
+    {experience.map((item, index) => {
+        const prevItem = experience[index + 1];
+        let label = null;
+        let tagline = null;
+        
+        if (prevItem) {
+            if (item.company === prevItem.company) {
+                label = lang === 'pl' ? 'Awans' : 'Promotion';
+            } else if (prevItem.company === 'Credit Suisse' && item.company === 'UBS') {
+                label = lang === 'pl' ? 'Fuzja' : 'Company Merger';
+                tagline = lang === 'pl' ? '(UBS kupił Credit Suisse)' : '(UBS acquired Credit Suisse)';
+            }
+        }
+
+        const isUBS = item.company.includes('UBS');
+        const isCS = item.company.includes('Credit Suisse');
+        let gradient = 'linear-gradient(to right, #614385, #516395)';
+        if (isUBS) {
+            gradient = 'linear-gradient(to right, #E60000, #1C1C1C)';
+        } else if (isCS) {
+            gradient = 'linear-gradient(to right, #003868, #003868)';
+        }
+
+        return (
+            <div class="timeline-block">
+                <div class="timeline-item">
+                    <div class="timeline-dot" style={`background: ${gradient};`}></div>
+                    <div class="timeline-content" style={`background-image: ${gradient};`}>
+                        <div class="timeline-header">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                {isUBS && <img src={ubsLogo.src} height="24" width="24" alt="UBS" />}
+                                {isCS && <img src={csLogo.src} height="24" width="24" alt="Credit Suisse" />}
+                                <span class="company">{item.company}</span>
+                            </div>
+                            <span class="period">{item.period}</span>
+                        </div>
+                        <div class="role">{item.role}</div>
+                        <p class="description">{item.description}</p>
+                    </div>
+                </div>
+                {prevItem && (
+                    <div class="timeline-arrow-container">
+                        <div class="timeline-arrow-icon">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M11 19V6.83l-5.59 5.58L4 11l8-8 8 8-1.41 1.41L13 6.83V19h-2z"/>
+                            </svg>
+                        </div>
+                        {label && (
+                            <div class="timeline-arrow-label">
+                                <div>{label}</div>
+                                {tagline && <div class="timeline-arrow-tagline">{tagline}</div>}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+        );
+    })}
+</div>
+
+<style>
+    .timeline {
+        border-left: 2px solid #e9ecef;
+        padding-left: 1.9rem;
+        margin-left: 0.5rem;
+    }
+    .timeline-block {
+        /* Wrapper for item + arrow */
+    }
+    .timeline-item {
+        position: relative;
+    }
+    /* Arrow Connector Styles */
+    .timeline-arrow-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        position: relative;
+    }
+    .timeline-arrow-icon {
+        background: #fff;
+        color: #614385; /* Muted Purple */
+        border: 2px solid #e9ecef; /* Match timeline border color */
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Positioning logic to center on border */
+        margin-left: calc(-2rem - 17px); /* -padding-left(2rem) - half_width(16px) - border_width(1px approx fix) */
+        z-index: 2;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .timeline-arrow-label {
+        font-size: 0.75em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        color: var(--gray-dark);
+        background: #fff;
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .timeline-arrow-tagline {
+        font-size: 0.65em;
+        text-transform: none;
+        font-weight: 400;
+        color: rgb(var(--gray));
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: calc(-2rem - 9px); /* Center on the 2px border */
+        top: 1.5rem; /* Align with the card content */
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 0 0 2px rgba(var(--gray), 0.1);
+    }
+    .timeline-content {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        border: 1px solid #e9ecef;
+        
+        /* Gradient border on top (colors provided via inline style) */
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: 100% 4px;
+    }
+    
+    .timeline-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .company {
+        font-weight: bold;
+        font-size: 0.9em;
+        color: var(--black);
+    }
+    .period {
+        font-size: 0.6em;
+        color: rgb(var(--gray));
+        font-family: monospace;
+        background-color: rgb(var(--gray-light));
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+    }
+    .role {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 1em;
+        color: var(--black);
+        display: inline-block;
+    }
+    .description {
+        font-size: 0.7em;
+        color: var(--gray-dark);
+        margin: 0;
+        line-height: 1.6;
+    }
+</style>
