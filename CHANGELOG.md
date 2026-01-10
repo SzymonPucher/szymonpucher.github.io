@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.5.0...szymonpucher-portfolio-v0.6.0) (2026-01-10)
+
+
+### Features
+
+* add experience section ([29dcb84](https://github.com/SzymonPucher/szymonpucher.github.io/commit/29dcb84b0522dd5579089d980cfe7d2e1ba1efa3))
+* add releases url to version in footer ([f423c25](https://github.com/SzymonPucher/szymonpucher.github.io/commit/f423c25771260186b2af694a914a2023f4a58c2f))
+
 ## [0.5.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.4.0...szymonpucher-portfolio-v0.5.0) (2026-01-07)
 
 
