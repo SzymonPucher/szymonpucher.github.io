@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.6.0...szymonpucher-portfolio-v0.7.0) (2026-01-11)
+
+
+### Features
+
+* add content to experience ([dcd3023](https://github.com/SzymonPucher/szymonpucher.github.io/commit/dcd3023a3282c5443a9d92ddfae19f6f490b3508))
+* add key technologies to experience ([21cccca](https://github.com/SzymonPucher/szymonpucher.github.io/commit/21ccccadafa6923463a876c8289c47a44acde982))
+* index experience from oldest to latest ([6cb1fbc](https://github.com/SzymonPucher/szymonpucher.github.io/commit/6cb1fbccf4ebd96520e1955ebd9ad5b93555d60e))
+
+
+### Bug Fixes
+
+* displaying experience markdown ([0e63bdf](https://github.com/SzymonPucher/szymonpucher.github.io/commit/0e63bdf3fa68664c6cd1c63bc575a79e58fb9735))
+
 ## [0.6.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.5.0...szymonpucher-portfolio-v0.6.0) (2026-01-10)
 
 
