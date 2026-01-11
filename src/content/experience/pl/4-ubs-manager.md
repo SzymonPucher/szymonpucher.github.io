@@ -4,12 +4,22 @@ role: "Starszy Inżynier Oprogramowania, Manager"
 startDate: "2024-10-01"
 endDate: "Obecnie"
 order: 4
+location: "Wrocław"
+technologies:
+  - Python
+  - FastAPI
+  - Databricks
+  - Postgres
+  - Docker
+  - GitLab CI/CD
+  - Azure
+  - Zarządzanie Zespołem
 ---
-Rozwiązanie Credit Suisse stworzone przez mój zespół spodobało się UBS tak bardzo, że po przejęciu CS poprosili nas o zbudowanie tego samego na infrastrukturze UBS z wykorzystaniem preferowanego przez nich stosu technologicznego.
+Rozwiązanie mojego zespołu w Credit Suisse spodobało się UBS tak bardzo, że po przejęciu CS poprosili nas o zbudowanie tego samego na infrastrukturze UBS przy użyciu preferowanego przez nich stosu technologicznego.
 
-Budowa platformy danych opartej na Databricks i Azure od podstaw.
+Budowanie platformy danych opartej na Databricks i Azure od podstaw.
 
-Migracja rozwiązania do katalogowania danych ze znaczącą zmianą w kierunku pakowania danych jako Produkty Danych (Data Products).
+Migracja rozwiązania do katalogowania danych z istotną zmianą w kierunku pakowania danych jako Produkty Danych przy użyciu [DCAT](https://www.w3.org/TR/vocab-dcat-1/).
 
-Zarządzanie małym zespołem w Polsce.
-Szef stacjonujący w Nowym Jorku.
+Zarządzanie małym zespołem w Polsce.  
+Szef z siedzibą w Nowym Jorku.

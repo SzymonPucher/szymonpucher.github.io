@@ -1,12 +1,16 @@
 ---
 import azureLogo from '../assets/azure.svg';
 
-const { techTitle, techInstruction } = Astro.props;
+const { techTitle, techInstruction, techDisclaimer } = Astro.props;
 ---
 
 <section class="tech-stack fade-in delay-2">
     <h3 class="tech-title">{techTitle}</h3>
-    <p class="tech-instruction">{techInstruction}</p>
+    <p class="tech-instruction">
+        {techDisclaimer}
+        <br />
+        {techInstruction}
+    </p>
     
     <div class="tech-category">
         <div class="tech-grid">

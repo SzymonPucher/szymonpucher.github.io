@@ -26,7 +26,7 @@ const experienceEntries = await getCollection('experience', (entry) => {
 const sortedExperience = experienceEntries.sort((a, b) => b.data.order - a.data.order);
 
 const experienceData = await Promise.all(sortedExperience.map(async entry => {
-    const { company, role, startDate, endDate } = entry.data;
+    const { company, role, startDate, endDate, technologies, location } = entry.data;
     const body = entry.body;
 
     const dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: lang === 'pl' ? 'long' : 'short' };
@@ -49,7 +49,9 @@ const experienceData = await Promise.all(sortedExperience.map(async entry => {
         company,
         role,
         period: `${finalStart} - ${finalEnd}`,
-        description: descriptionHtml
+        description: descriptionHtml,
+        technologies,
+        location
     };
 }));
 
@@ -57,11 +59,13 @@ const content = {
 	en: {
         techTitle: "Tech Stack",
         techInstruction: "Hover on tiles below for more context.",
+        techDisclaimer: "The list includes technologies I have used extensively recently and feel comfortable with.",
         experienceTitle: "Experience",
 	},
 	pl: {
         techTitle: "Technologie",
         techInstruction: "Najedź na kafelki poniżej, aby uzyskać więcej informacji",
+        techDisclaimer: "Lista zawiera technologie, z których intensywnie korzystałem w ostatnim czasie i w których czuję się swobodnie.",
         experienceTitle: "Doświadczenie",
 	}
 };
@@ -92,9 +96,9 @@ const t = content[lang as keyof typeof content];
         </section>
 
         {lang === 'pl' ? (
-            <TechStackPl techTitle={t.techTitle} techInstruction={t.techInstruction} />
+            <TechStackPl techTitle={t.techTitle} techInstruction={t.techInstruction} techDisclaimer={t.techDisclaimer} />
         ) : (
-            <TechStack techTitle={t.techTitle} techInstruction={t.techInstruction} />
+            <TechStack techTitle={t.techTitle} techInstruction={t.techInstruction} techDisclaimer={t.techDisclaimer} />
         )}
 
         <section class="experience fade-in delay-3">

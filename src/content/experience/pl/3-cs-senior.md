@@ -1,10 +1,25 @@
 ---
 company: "Credit Suisse"
-role: "Starszy Inżynier Oprogramowania (AVP)"
+role: "Starszy Inżynier Oprogramowania"
 startDate: "2023-01-01"
 endDate: "2024-10-01"
 order: 3
+location: "Wrocław"
+technologies:
+  - Python
+  - FastAPI
+  - Postgres
+  - Docker
+  - Jenkins
+  - Kubernetes
+  - OpenShift
+  - ETL
+  - Cloudera
 ---
-Projektowanie, implementacja, testowanie, wydawanie wersji produkcyjnych, utrzymanie i aktualizacje aplikacji webowej katalogu danych, automatycznie gromadzącej metadane, umożliwiającej ich dalsze wzbogacanie i dystrybucję poprzez UI i API.
+Zarządzanie rozwojem wielu aplikacji w Pythonie.
 
-Główny recenzent i doradca wszystkich projektów w Pythonie w moim zespole składającym się z maksymalnie 6 programistów Pythona.
+Projektowanie, implementacja, testowanie, wdrażanie na produkcję, utrzymanie i aktualizacja aplikacji webowej katalogu danych, automatycznie gromadzącej metadane, umożliwiającej ich dalsze wzbogacanie i dystrybucję poprzez UI i API.
+
+Praca inżyniera danych na platformie Big Data, dostarczająca dane audytowe SOX.
+
+Główny recenzent i doradca dla wszystkich aplikacji w Pythonie w moim zespole, składającym się z maksymalnie 5 programistów Pythona.

@@ -1,9 +1,20 @@
 ---
 company: "Credit Suisse"
-role: "Junior Developer"
+role: "Junior Data Engineer"
 startDate: "2019-03-01"
 endDate: "2021-06-01"
 order: 1
+location: "Wrocław"
+technologies:
+  - Angular
+  - Python
+  - SQL
+  - Flask
+  - Spark
+  - Postgres
+  - Cloudera
+  - Big Data
+  - ETL
 ---
 Design, implementation, testing, production deployment maintainance and upgrades of events based scheduling solution for spark data pipelines in big data environment. Custom solution due to specific requirements. 
 
