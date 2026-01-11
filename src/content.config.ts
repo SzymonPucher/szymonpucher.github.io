@@ -37,6 +37,8 @@ const experience = defineCollection({
 		startDate: z.union([z.coerce.date(), z.string()]), // Allow string for "2024-10-01" or similar
 		endDate: z.string(), // "Present" or "Obecnie" or date string
 		order: z.number(),
+		technologies: z.array(z.string()).optional(),
+		location: z.string().optional(),
 	}),
 });
 

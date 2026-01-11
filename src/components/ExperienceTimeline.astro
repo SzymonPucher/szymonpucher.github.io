@@ -8,6 +8,8 @@ interface Props {
         role: string;
         period: string;
         description: string;
+        technologies?: string[];
+        location?: string;
     }[];
     lang: string;
 }
@@ -50,10 +52,26 @@ const { experience, lang } = Astro.props;
                                 {isCS && <img src={csLogo.src} height="24" width="24" alt="Credit Suisse" />}
                                 <span class="company">{item.company}</span>
                             </div>
-                            <span class="period">{item.period}</span>
+                            <div class="meta-info">
+                                {item.location && <span class="location">{item.location}</span>}
+                                <span class="period">{item.period}</span>
+                            </div>
                         </div>
                         <div class="role">{item.role}</div>
-                        <p class="description">{item.description}</p>
+                        <div class="description" set:html={item.description} />
+                        {item.technologies && item.technologies.length > 0 && (
+                            <div class="technologies-container">
+                                <div class="tech-divider"></div>
+                                <div class="tech-title">
+                                    {lang === 'pl' ? 'Kluczowe technologie' : 'Key Technologies'}
+                                </div>
+                                <div class="technologies">
+                                    {item.technologies.map((tech) => (
+                                        <span class="tech-badge">{tech}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
                 {prevItem && (
@@ -170,6 +188,17 @@ const { experience, lang } = Astro.props;
         font-size: 0.9em;
         color: var(--black);
     }
+    .meta-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .location {
+        font-size: 0.6em;
+        color: rgb(var(--gray));
+        font-weight: 500;
+        text-transform: uppercase;
+    }
     .period {
         font-size: 0.6em;
         color: rgb(var(--gray));
@@ -190,5 +219,34 @@ const { experience, lang } = Astro.props;
         color: var(--gray-dark);
         margin: 0;
         line-height: 1.6;
+    }
+    .technologies-container {
+        margin-top: 1rem;
+    }
+    .tech-divider {
+        height: 1px;
+        background-color: rgba(var(--gray), 0.1);
+        margin-bottom: 0.5rem;
+    }
+    .tech-title {
+        font-size: 0.55em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgb(var(--gray));
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+    }
+    .technologies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+    .tech-badge {
+        font-size: 0.6em;
+        background-color: rgb(var(--gray-light));
+        color: var(--gray-dark);
+        padding: 0.15rem 0.45rem;
+        border-radius: 12px;
+        font-weight: 500;
     }
 </style>

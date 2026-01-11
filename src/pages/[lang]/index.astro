@@ -9,6 +9,7 @@ import ExperienceTimeline from '../../components/ExperienceTimeline.astro';
 import TechStack from '../../components/TechStack.astro';
 import TechStackPl from '../../components/TechStackPl.astro';
 import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -22,10 +23,10 @@ const experienceEntries = await getCollection('experience', (entry) => {
     return entry.id.startsWith(lang + '/');
 });
 
-const sortedExperience = experienceEntries.sort((a, b) => a.data.order - b.data.order);
+const sortedExperience = experienceEntries.sort((a, b) => b.data.order - a.data.order);
 
-const experienceData = sortedExperience.map(entry => {
-    const { company, role, startDate, endDate } = entry.data;
+const experienceData = await Promise.all(sortedExperience.map(async entry => {
+    const { company, role, startDate, endDate, technologies, location } = entry.data;
     const body = entry.body;
 
     const dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: lang === 'pl' ? 'long' : 'short' };
@@ -42,23 +43,29 @@ const experienceData = sortedExperience.map(entry => {
          }
     }
 
+    const descriptionHtml = body ? await marked.parse(body) : '';
+
     return {
         company,
         role,
         period: `${finalStart} - ${finalEnd}`,
-        description: body ?? ''
+        description: descriptionHtml,
+        technologies,
+        location
     };
-});
+}));
 
 const content = {
 	en: {
         techTitle: "Tech Stack",
         techInstruction: "Hover on tiles below for more context.",
+        techDisclaimer: "The list includes technologies I have used extensively recently and feel comfortable with.",
         experienceTitle: "Experience",
 	},
 	pl: {
         techTitle: "Technologie",
         techInstruction: "Najedź na kafelki poniżej, aby uzyskać więcej informacji",
+        techDisclaimer: "Lista zawiera technologie, z których intensywnie korzystałem w ostatnim czasie i w których czuję się swobodnie.",
         experienceTitle: "Doświadczenie",
 	}
 };
@@ -89,9 +96,9 @@ const t = content[lang as keyof typeof content];
         </section>
 
         {lang === 'pl' ? (
-            <TechStackPl techTitle={t.techTitle} techInstruction={t.techInstruction} />
+            <TechStackPl techTitle={t.techTitle} techInstruction={t.techInstruction} techDisclaimer={t.techDisclaimer} />
         ) : (
-            <TechStack techTitle={t.techTitle} techInstruction={t.techInstruction} />
+            <TechStack techTitle={t.techTitle} techInstruction={t.techInstruction} techDisclaimer={t.techDisclaimer} />
         )}
 
         <section class="experience fade-in delay-3">
