@@ -53,7 +53,7 @@ const { experience, lang } = Astro.props;
                             <span class="period">{item.period}</span>
                         </div>
                         <div class="role">{item.role}</div>
-                        <p class="description">{item.description}</p>
+                        <div class="description" set:html={item.description} />
                     </div>
                 </div>
                 {prevItem && (

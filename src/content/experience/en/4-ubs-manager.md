@@ -11,5 +11,5 @@ Building data platform based on Databricks and Azure from scratch.
 
 Migration of data catalogueing solution with major change towards packaging data as Data Products. 
 
-Managing a small team in Poland. 
+Managing a small team in Poland.  
 Boss based in New York.
