@@ -3,7 +3,7 @@ company: "Credit Suisse"
 role: "Młodszy Programista"
 startDate: "2019-03-01"
 endDate: "2021-06-01"
-order: 4
+order: 1
 ---
 Projektowanie, implementacja, testowanie i wdrożenie produkcyjne rozwiązania do harmonogramowania opartego na zdarzeniach dla potoków danych Spark w środowisku Big Data. Rozwiązanie niestandardowe ze względu na specyficzne wymagania.
 

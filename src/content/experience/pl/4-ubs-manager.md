@@ -3,7 +3,7 @@ company: "UBS"
 role: "Starszy Inżynier Oprogramowania, Manager"
 startDate: "2024-10-01"
 endDate: "Obecnie"
-order: 1
+order: 4
 ---
 Rozwiązanie Credit Suisse stworzone przez mój zespół spodobało się UBS tak bardzo, że po przejęciu CS poprosili nas o zbudowanie tego samego na infrastrukturze UBS z wykorzystaniem preferowanego przez nich stosu technologicznego.
 

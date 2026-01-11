@@ -22,7 +22,7 @@ const experienceEntries = await getCollection('experience', (entry) => {
     return entry.id.startsWith(lang + '/');
 });
 
-const sortedExperience = experienceEntries.sort((a, b) => a.data.order - b.data.order);
+const sortedExperience = experienceEntries.sort((a, b) => b.data.order - a.data.order);
 
 const experienceData = sortedExperience.map(entry => {
     const { company, role, startDate, endDate } = entry.data;

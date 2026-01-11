@@ -3,7 +3,7 @@ company: "Credit Suisse"
 role: "Starszy Inżynier Oprogramowania (AVP)"
 startDate: "2023-01-01"
 endDate: "2024-10-01"
-order: 2
+order: 3
 ---
 Projektowanie, implementacja, testowanie, wydawanie wersji produkcyjnych, utrzymanie i aktualizacje aplikacji webowej katalogu danych, automatycznie gromadzącej metadane, umożliwiającej ich dalsze wzbogacanie i dystrybucję poprzez UI i API.
 

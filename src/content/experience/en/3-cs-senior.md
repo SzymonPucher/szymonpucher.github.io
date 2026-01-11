@@ -3,7 +3,7 @@ company: "Credit Suisse"
 role: "Senior Software Engineer (AVP)"
 startDate: "2023-01-01"
 endDate: "2024-10-01"
-order: 2
+order: 3
 ---
 Design, implementation, testing, production release, maintainance and upgrades of data catalogue web application automatically gathering metadata, allowing further enrichment  and distribution through UI and API. 
 

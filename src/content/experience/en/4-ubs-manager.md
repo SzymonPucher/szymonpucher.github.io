@@ -3,7 +3,7 @@ company: "UBS"
 role: "Senior Software Engineer, Manager"
 startDate: "2024-10-01"
 endDate: "Present"
-order: 1
+order: 4
 ---
 Credit Suisse's solution of my team was liked by UBS so much, that after buying CS they asked us to build the same on UBS infrastructure with UBS preffered stack. 
 
