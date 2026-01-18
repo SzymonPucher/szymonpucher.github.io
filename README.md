@@ -47,6 +47,3 @@ npm install
 | `npm run dev` | Starts local dev server at `localhost:4321` |
 | `npm run build` | Build the production site to `./dist/` |
 | `npm run preview` | Preview your build locally |
-
----
-*Built with ❤️ by Szymon Pucher*
