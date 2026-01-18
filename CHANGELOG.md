@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.7.0...szymonpucher-portfolio-v0.8.0) (2026-01-18)
+
+
+### Features
+
+* add new intro content ([fcd7352](https://github.com/SzymonPucher/szymonpucher.github.io/commit/fcd7352bda59b2743bc07ea87954497e1224a9d6))
+* improve polish version of intro ([9984dd7](https://github.com/SzymonPucher/szymonpucher.github.io/commit/9984dd7640d10c7d8be45eaf19fbf898778fe794))
+
+
+### Bug Fixes
+
+* remove cringe tagline added by gemini from readme file ([bd06b21](https://github.com/SzymonPucher/szymonpucher.github.io/commit/bd06b210b5555636a2d4250ea8909a6a551dc792))
+
 ## [0.7.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.6.0...szymonpucher-portfolio-v0.7.0) (2026-01-11)
 
 
