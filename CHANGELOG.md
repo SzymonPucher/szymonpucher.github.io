@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.8.0...szymonpucher-portfolio-v0.8.1) (2026-01-18)
+
+
+### Bug Fixes
+
+* remove "Team Management" from tech section of ubs work experience ([de24769](https://github.com/SzymonPucher/szymonpucher.github.io/commit/de24769c25472cc7864ca380924cb97f14fe3c97))
+
 ## [0.8.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.7.0...szymonpucher-portfolio-v0.8.0) (2026-01-18)
 
 
