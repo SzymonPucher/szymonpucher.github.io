@@ -13,9 +13,8 @@ technologies:
   - Docker
   - GitLab CI/CD
   - Azure
-  - Zarządzanie Zespołem
 ---
-Rozwiązanie mojego zespołu w Credit Suisse spodobało się UBS tak bardzo, że po przejęciu CS poprosili nas o zbudowanie tego samego na infrastrukturze UBS przy użyciu preferowanego przez nich stosu technologicznego.
+Rozwiązanie mojego zespołu w Credit Suisse spodobało się UBS tak bardzo, że po przejęciu CS poprosili nas o zbudowanie tego samego na infrastrukturze UBS przy użyciu preferowanych przez nich technologii.
 
 Budowanie platformy danych opartej na Databricks i Azure od podstaw.
 

@@ -13,7 +13,6 @@ technologies:
   - Docker
   - GitLab CI/CD
   - Azure
-  - Team Management
 ---
 Credit Suisse's solution of my team was liked by UBS so much, that after buying CS they asked us to build the same on UBS infrastructure with UBS preffered stack. 
 
