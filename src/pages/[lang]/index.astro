@@ -8,6 +8,7 @@ import IntroPl from '../../components/intro/IntroPl.md';
 import ExperienceTimeline from '../../components/ExperienceTimeline.astro';
 import TechStack from '../../components/TechStack.astro';
 import TechStackPl from '../../components/TechStackPl.astro';
+import DataPipelineDiagram from '../../components/DataPipelineDiagram.astro';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
 
@@ -61,12 +62,70 @@ const content = {
         techInstruction: "Hover on tiles below for more context.",
         techDisclaimer: "The list includes technologies I have used extensively recently and feel comfortable with.",
         experienceTitle: "Experience",
+        diagram: {
+            sources: "Data Producers",
+            datalake: "Data Platform",
+            workflows: "Analytical Workflows",
+            rdbms: "RDBMS",
+            nosql: "NoSQL DBs",
+            csv: "Files",
+            msgbus: "Message Buses",
+            api: "REST API",
+            iot: "IoT / Devices",
+            logs: "System Logs",
+            reporting: "Dashboards & Reporting",
+            observability: "Observability & Governance",
+            user: "Business User",
+            analyst: "Data Analyst",
+            analystReads: "Analyzes Data",
+            analystBuilds: "Builds",
+            userConsumes: "Consumes Insight",
+            workflowConsumes: "Consumes Data",
+            workflowProduces: "Produces New Data",
+            catalogue: "Data Catalogue",
+            quality: "Quality Metrics",
+            lineage: "Lineage Tracking",
+            selfService: "Self-service capabilities",
+            accessControl: "Access Control",
+            dataOnboarding: "Data Onboarding &",
+            dataRegistration: "Data Registration",
+            dataVisualization: "Data Visualization",
+        }
 	},
 	pl: {
         techTitle: "Technologie",
         techInstruction: "Najedź na kafelki poniżej, aby uzyskać więcej informacji",
         techDisclaimer: "Lista zawiera technologie, z których intensywnie korzystałem w ostatnim czasie i w których czuję się swobodnie.",
         experienceTitle: "Doświadczenie",
+        diagram: {
+            sources: "Producenci Danych",
+            datalake: "Platforma Danych",
+            workflows: "Procesy Analityczne",
+            rdbms: "Bazy Danych",
+            nosql: "Bazy NoSQL",
+            csv: "Pliki",
+            msgbus: "Szyny Danych",
+            api: "REST API",
+            iot: "IoT / Urządzenia",
+            logs: "Logi Systemowe",
+            reporting: "Dashboardy i Raporty",
+            observability: "Obserwowalność i Zarządzanie",
+            user: "Użytkownik Biznesowy",
+            analyst: "Analityk Danych",
+            analystReads: "Konsumuje Dane",
+            analystBuilds: "Buduje",
+            userConsumes: "Konsumuje Dane",
+            workflowConsumes: "Konsumuje Dane",
+            workflowProduces: "Produkuje Nowe Dane",
+            catalogue: "Katalog Danych",
+            quality: "Metryki Jakości",
+            lineage: "Śledzenie Pochodzenia",
+            selfService: "Możliwości Self-service",
+            accessControl: "Kontrola Dostępu",
+            dataOnboarding: "Data Onboarding &",
+            dataRegistration: "Data Registration",
+            dataVisualization: "Data Visualization",
+        }
 	}
 };
 
@@ -92,6 +151,7 @@ const t = content[lang as keyof typeof content];
             <Image src={aboutImage} alt="Szymon Pucher" class="profile-img" width={300} />
             <div class="lead">
                 <Intro />
+                <DataPipelineDiagram labels={t.diagram} />
             </div>
         </section>
 
