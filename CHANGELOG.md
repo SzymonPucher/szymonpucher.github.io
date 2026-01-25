@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.8.1...szymonpucher-portfolio-v0.9.0) (2026-01-25)
+
+
+### Features
+
+* add data platform pipeline animation to home page ([1eb483b](https://github.com/SzymonPucher/szymonpucher.github.io/commit/1eb483b2da4695bfd3693213e363312ef012954c))
+* improve wording in english intro ([b737a3f](https://github.com/SzymonPucher/szymonpucher.github.io/commit/b737a3fcfb2bd790f1d4643028dbbf5ec25fe65a))
+
 ## [0.8.1](https://github.com/SzymonPucher/szymonpucher.github.io/compare/szymonpucher-portfolio-v0.8.0...szymonpucher-portfolio-v0.8.1) (2026-01-18)
 
 
