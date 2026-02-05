@@ -24,10 +24,14 @@
   "3-cs-senior": [
     "Python",
     "FastAPI",
+    "Spark",
     "Postgres",
+    "Impala",
+    "HDFS",
     "Docker",
     "Jenkins",
-    "OpenShift"
+    "OpenShift",
+    "Cloudera"
   ],
   "4-ubs-manager": [
     "Python",
