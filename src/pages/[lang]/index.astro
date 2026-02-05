@@ -11,6 +11,7 @@ import TechStackPl from '../../components/TechStackPl.astro';
 import DataPipelineDiagram from '../../components/DataPipelineDiagram.astro';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
+import experienceTechnologies from '../../data/experienceTechnologies.json';
 
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -27,7 +28,7 @@ const experienceEntries = await getCollection('experience', (entry) => {
 const sortedExperience = experienceEntries.sort((a, b) => b.data.order - a.data.order);
 
 const experienceData = await Promise.all(sortedExperience.map(async entry => {
-    const { company, role, startDate, endDate, technologies, location } = entry.data;
+    const { company, role, startDate, endDate, location } = entry.data;
     const body = entry.body;
 
     const dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: lang === 'pl' ? 'long' : 'short' };
@@ -45,6 +46,10 @@ const experienceData = await Promise.all(sortedExperience.map(async entry => {
     }
 
     const descriptionHtml = body ? await marked.parse(body) : '';
+    
+    // Extract filename without extension to use as key
+    const slug = entry.id.split('/').pop()?.replace('.md', '') || '';
+    const technologies = (experienceTechnologies as Record<string, string[]>)[slug] || [];
 
     return {
         company,

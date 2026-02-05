@@ -1,0 +1,41 @@
+{
+  "1-cs-junior": [
+    "Angular",
+    "Python",
+    "SQL",
+    "Flask",
+    "Spark",
+    "Postgres",
+    "Impala",
+    "HDFS",
+    "Cloudera"
+  ],
+  "2-cs-dev": [
+    "Python",
+    "SQL",
+    "FastAPI",
+    "Spark",
+    "Postgres",
+    "Impala",
+    "HDFS",
+    "Tableau",
+    "Cloudera"
+  ],
+  "3-cs-senior": [
+    "Python",
+    "FastAPI",
+    "Postgres",
+    "Docker",
+    "Jenkins",
+    "OpenShift"
+  ],
+  "4-ubs-manager": [
+    "Python",
+    "FastAPI",
+    "Databricks",
+    "Postgres",
+    "Docker",
+    "GitLab CI/CD",
+    "Azure"
+  ]
+}

@@ -5,14 +5,6 @@ startDate: "2024-10-01"
 endDate: "Obecnie"
 order: 4
 location: "Wrocław"
-technologies:
-  - Python
-  - FastAPI
-  - Databricks
-  - Postgres
-  - Docker
-  - GitLab CI/CD
-  - Azure
 ---
 Rozwiązanie mojego zespołu w Credit Suisse spodobało się UBS tak bardzo, że po przejęciu CS poprosili nas o zbudowanie tego samego na infrastrukturze UBS przy użyciu preferowanych przez nich technologii.
 

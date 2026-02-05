@@ -5,16 +5,6 @@ startDate: "2023-01-01"
 endDate: "2024-10-01"
 order: 3
 location: "Wrocław"
-technologies:
-  - Python
-  - FastAPI
-  - Postgres
-  - Docker
-  - Jenkins
-  - Kubernetes
-  - OpenShift
-  - ETL
-  - Cloudera
 ---
 Zarządzanie rozwojem wielu aplikacji w Pythonie.
 
