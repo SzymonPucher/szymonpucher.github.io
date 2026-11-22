@@ -7,6 +7,7 @@ import FormattedDate from '../../../components/FormattedDate.astro';
 import Header from '../../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
 import { languages } from '../../../i18n/ui';
+import { withBase } from '../../../i18n/utils';
 
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -101,7 +102,7 @@ const projects = (await getCollection('projects'))
 					{
 						projects.map((project) => (
 							<li>
-								<a href={`/${lang}/projects/${project.id.split('/')[1]}/`}>
+								<a href={withBase(`/${lang}/projects/${project.id.split('/')[1]}/`)}>
 									{project.data.heroImage && (
 										<Image width={720} height={360} src={project.data.heroImage} alt="" />
 									)}

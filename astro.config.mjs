@@ -6,7 +6,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://szymonpucher.github.io',
+	site: process.env.ASTRO_SITE || 'https://szymonpucher.github.io',
+	base: process.env.ASTRO_BASE || '/',
 	i18n: {
 		defaultLocale: 'en',
 		locales: ['en', 'pl'],

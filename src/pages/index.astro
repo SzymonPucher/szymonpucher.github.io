@@ -1,12 +1,14 @@
 ---
+import { withBase } from '../i18n/utils';
+const redirectUrl = withBase('/en/');
 ---
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0;url=/en/" />
+    <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
     <title>Redirecting...</title>
   </head>
   <body>
-    <p>Redirecting to <a href="/en/">/en/</a></p>
+    <p>Redirecting to <a href={redirectUrl}>{redirectUrl}</a></p>
   </body>
 </html>

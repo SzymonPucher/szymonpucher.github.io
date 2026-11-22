@@ -2,7 +2,7 @@
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import LanguagePicker from './LanguagePicker.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, withBase } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -11,14 +11,14 @@ const t = useTranslations(lang);
 <header>
 	<nav>
 		<div class="title-wrapper">
-			<h2><a href={`/${lang}/`}>{SITE_TITLE}</a></h2>
+			<h2><a href={withBase(`/${lang}/`)}>{SITE_TITLE}</a></h2>
 			<span class="tagline">Building maintainable software quickly.</span>
 		</div>
 		<div class="internal-links">
-			<HeaderLink href={`/${lang}/`}>{t('nav.home')}</HeaderLink>
-			<HeaderLink href={`/${lang}/projects`}>{t('nav.projects')}</HeaderLink>
-			<HeaderLink href={`/${lang}/blog`}>{t('nav.blog')}</HeaderLink>
-			<HeaderLink href={`/${lang}/contact`}>{t('nav.contact')}</HeaderLink>
+			<HeaderLink href={withBase(`/${lang}/`)}>{t('nav.home')}</HeaderLink>
+			<HeaderLink href={withBase(`/${lang}/projects`)}>{t('nav.projects')}</HeaderLink>
+			<HeaderLink href={withBase(`/${lang}/blog`)}>{t('nav.blog')}</HeaderLink>
+			<HeaderLink href={withBase(`/${lang}/contact`)}>{t('nav.contact')}</HeaderLink>
 		</div>
 		<div class="right-section">
 			<LanguagePicker />

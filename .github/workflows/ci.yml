@@ -4,9 +4,13 @@ on:
   push:
     branches-ignore:
       - main
+      - 'epic/**'
+      - 'epic*'
   pull_request:
     branches:
       - main
+      - 'epic/**'
+      - 'epic*'
 
 jobs:
   build:

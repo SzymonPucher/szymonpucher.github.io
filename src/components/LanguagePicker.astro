@@ -1,10 +1,12 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, withBase } from '../i18n/utils';
 import { languages } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const pathParts = Astro.url.pathname.split('/').filter(Boolean);
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const relativePathname = Astro.url.pathname.replace(basePath, '');
+const pathParts = relativePathname.split('/').filter(Boolean);
 
 // If first part is lang, remove it.
 if (pathParts[0] in languages) {
@@ -17,7 +19,7 @@ const canonicalPath = pathParts.join('/');
     <ul class="language-picker">
     {Object.entries(languages).map(([l, label]) => (
         <li>
-        <a href={`/${l}/${canonicalPath}`} aria-label={label} class={l === lang ? 'active' : ''}>
+        <a href={withBase(`/${l}/${canonicalPath}`)} aria-label={label} class={l === lang ? 'active' : ''}>
             {l === 'en' && (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12">
                 <clipPath id="s">
