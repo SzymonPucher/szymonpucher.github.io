@@ -6,7 +6,7 @@ import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 import { languages } from '../../i18n/ui';
 import { withBase } from '../../i18n/utils';
-import { getAllowedAdminEmails } from '../../data/adminConfig';
+import { getAllowedAdminEmails, getGoogleClientId } from '../../data/adminConfig';
 
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -16,7 +16,7 @@ const { lang } = Astro.params;
 const isPl = lang === 'pl';
 
 const allowedEmails = getAllowedAdminEmails();
-const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
+const googleClientId = getGoogleClientId();
 
 const allPosts = await getCollection('blog');
 const allProjects = await getCollection('projects');

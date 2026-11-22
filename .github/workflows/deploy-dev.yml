@@ -36,6 +36,7 @@ jobs:
         env:
           ASTRO_BASE: '/szymonpucher-dev/'
           ASTRO_SITE: 'https://szymonpucher.github.io'
+          PUBLIC_GOOGLE_CLIENT_ID: ${{ vars.PUBLIC_GOOGLE_CLIENT_ID || '869604397100-4c37t9il1hub0ke4p0on2hhlsbhbgj9i.apps.googleusercontent.com' }}
         run: npm run build
 
       - name: Deploy to szymonpucher-dev repository
