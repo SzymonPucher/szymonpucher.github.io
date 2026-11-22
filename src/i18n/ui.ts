@@ -13,6 +13,7 @@ export const ui = {
     'nav.contact': 'Contact',
     'nav.twitter': 'Twitter',
     'nav.language': 'Language',
+    'nav.admin': 'Admin',
   },
   pl: {
     'nav.home': 'O mnie',
@@ -20,6 +21,7 @@ export const ui = {
     'nav.blog': 'Blog',
     'nav.contact': 'Kontakt',
     'nav.twitter': 'Twitter',
-    'nav.language': 'Language',
+    'nav.language': 'Język',
+    'nav.admin': 'Admin',
   },
 } as const;

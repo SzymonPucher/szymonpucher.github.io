@@ -1,0 +1,569 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { languages } from '../../i18n/ui';
+import { withBase } from '../../i18n/utils';
+import { getAllowedAdminEmails } from '../../data/adminConfig';
+
+export function getStaticPaths() {
+	return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const isPl = lang === 'pl';
+
+const allowedEmails = getAllowedAdminEmails();
+const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
+
+const allPosts = await getCollection('blog');
+const allProjects = await getCollection('projects');
+const allExperience = await getCollection('experience');
+
+const postsCount = allPosts.filter((p) => p.id.startsWith(`${lang}/`)).length;
+const projectsCount = allProjects.filter((p) => p.id.startsWith(`${lang}/`)).length;
+const experienceCount = allExperience.filter((e) => e.id.startsWith(`${lang}/`)).length;
+
+const pageTitle = isPl ? `Panel Administratora - ${SITE_TITLE}` : `Admin Portal - ${SITE_TITLE}`;
+const pageDescription = isPl ? 'Panel administracyjny dostępny wyłącznie dla autoryzowanych kont Google.' : 'Admin portal accessible only with authorized Google accounts.';
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<BaseHead title={pageTitle} description={pageDescription} />
+		<!-- Google Identity Services library -->
+		<script is:inline src="https://accounts.google.com/gsi/client" async defer></script>
+		<style>
+			.admin-container {
+				width: 100%;
+				max-width: 860px;
+				margin: 0 auto;
+				padding: 1rem 0 3rem 0;
+			}
+			.admin-header {
+				margin-bottom: 2rem;
+				border-bottom: 1px solid rgb(var(--gray-light));
+				padding-bottom: 1rem;
+			}
+			.admin-badge {
+				display: inline-block;
+				font-size: 0.75rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				padding: 0.2rem 0.6rem;
+				border-radius: 4px;
+				background-color: var(--accent);
+				color: #fff;
+				margin-bottom: 0.5rem;
+			}
+			.card {
+				background: #fff;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				padding: 1.5rem;
+				margin-bottom: 1.5rem;
+				box-shadow: 0 2px 6px rgba(var(--gray), 10%);
+			}
+			.card h3 {
+				margin-top: 0;
+				margin-bottom: 0.75rem;
+				font-size: 1.25rem;
+			}
+			.auth-section {
+				text-align: center;
+				padding: 3rem 1.5rem;
+			}
+			.auth-lock-icon {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+				display: block;
+			}
+			.g-btn-wrapper {
+				display: flex;
+				justify-content: center;
+				margin: 1.5rem 0;
+				min-height: 44px;
+			}
+			.denied-card {
+				border-left: 4px solid #dc3545;
+				background-color: #fff5f5;
+			}
+			.denied-badge {
+				color: #dc3545;
+				font-weight: bold;
+			}
+			.user-profile-bar {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 1rem;
+				background: #f8fafc;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				padding: 1rem 1.25rem;
+				margin-bottom: 1.5rem;
+			}
+			.user-info {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+			.user-avatar {
+				width: 44px;
+				height: 44px;
+				border-radius: 50%;
+				border: 2px solid var(--accent);
+			}
+			.btn-signout {
+				background: #fff;
+				border: 1px solid rgb(var(--gray));
+				color: rgb(var(--gray-dark));
+				padding: 0.45rem 1rem;
+				border-radius: 6px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+			.btn-signout:hover {
+				background: #f1f5f9;
+				border-color: rgb(var(--gray-dark));
+			}
+			.btn-primary {
+				background: var(--accent);
+				border: none;
+				color: #fff;
+				padding: 0.5rem 1.2rem;
+				border-radius: 6px;
+				font-weight: 600;
+				cursor: pointer;
+			}
+			.btn-primary:hover {
+				background: var(--accent-dark);
+			}
+			.stats-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 1rem;
+				margin-bottom: 1.5rem;
+			}
+			.stat-box {
+				background: #fdfdfd;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 6px;
+				padding: 1rem;
+				text-align: center;
+			}
+			.stat-box .number {
+				font-size: 2rem;
+				font-weight: 700;
+				color: var(--accent);
+				line-height: 1.2;
+			}
+			.stat-box .label {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+			.email-list {
+				list-style: none;
+				padding: 0;
+				margin: 0.5rem 0;
+			}
+			.email-list li {
+				padding: 0.4rem 0.6rem;
+				background: #f1f5f9;
+				border-radius: 4px;
+				margin-bottom: 0.4rem;
+				font-family: monospace;
+				font-size: 0.95rem;
+				display: inline-block;
+				margin-right: 0.5rem;
+			}
+			.config-help {
+				background: #f9fbfd;
+				border: 1px dashed rgb(var(--gray));
+				border-radius: 6px;
+				padding: 1rem;
+				font-size: 0.9rem;
+				margin-top: 1rem;
+			}
+			.config-help code {
+				background: #edf2f7;
+				padding: 0.15rem 0.35rem;
+				border-radius: 3px;
+			}
+			.hidden {
+				display: none !important;
+			}
+			.quick-links {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 0.75rem;
+			}
+			.quick-link-btn {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.4rem 0.8rem;
+				background: #f1f5f9;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 4px;
+				font-size: 0.9rem;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+			}
+			.quick-link-btn:hover {
+				background: #e2e8f0;
+				color: var(--accent);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="admin-container" id="admin-root" data-allowed-emails={JSON.stringify(allowedEmails)} data-client-id={googleClientId}>
+				<div class="admin-header">
+					<span class="admin-badge">Admin Area</span>
+					<h1>{isPl ? 'Panel Administratora' : 'Admin Portal'}</h1>
+					<p>{isPl ? 'Dostęp wyłącznie dla uprawnionych użytkowników z kontem Google.' : 'Restricted access for authorized Google accounts only.'}</p>
+				</div>
+
+				<!-- STATE 1: SIGN IN VIEW -->
+				<section id="view-signin" class="card auth-section">
+					<span class="auth-lock-icon">🔒</span>
+					<h2>{isPl ? 'Wymagane Logowanie' : 'Authentication Required'}</h2>
+					<p>{isPl ? 'Aby uzyskać dostęp do panelu administratora, zaloguj się autoryzowanym kontem Google.' : 'To access the admin dashboard, please sign in with an authorized Google account.'}</p>
+
+					<div class="g-btn-wrapper" id="g-signin-container">
+						<div id="g-signin-btn"></div>
+					</div>
+
+					<!-- Setup Helper if Client ID is missing -->
+					<div id="client-id-helper" class="config-help hidden">
+						<strong>⚠️ {isPl ? 'Brak konfiguracji Google OAuth Client ID' : 'Google OAuth Client ID Not Configured'}</strong>
+						<p style="margin: 0.5rem 0;">
+							{isPl 
+								? 'Aby umożliwić logowanie Google w środowisku produkcyjnym/dev, utwórz identyfikator klienta OAuth 2.0 w Google Cloud Console i ustaw zmienną środowiskową:' 
+								: 'To enable Google Login on production/dev, create an OAuth 2.0 Client ID in Google Cloud Console and set the environment variable:'}
+						</p>
+						<code>PUBLIC_GOOGLE_CLIENT_ID="&lt;your-client-id&gt;.apps.googleusercontent.com"</code>
+						
+						<div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgb(var(--gray-light));">
+							<p style="margin-bottom: 0.5rem;"><strong>{isPl ? 'Przetestuj z własnym Client ID w przeglądarce:' : 'Test with your Client ID in this browser:'}</strong></p>
+							<div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+								<input type="text" id="manual-client-id" placeholder="your-client-id.apps.googleusercontent.com" style="padding: 0.4rem; width: 320px; max-width: 100%; border: 1px solid rgb(var(--gray)); border-radius: 4px;" />
+								<button type="button" id="btn-save-client-id" class="btn-primary">{isPl ? 'Zapisz i Załaduj' : 'Save & Load'}</button>
+							</div>
+						</div>
+
+						<div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgb(var(--gray-light));">
+							<p style="margin-bottom: 0.5rem; color: rgb(var(--gray));">
+								<em>{isPl ? 'Tryb symulacji deweloperskiej (do testów lokalnych):' : 'Developer simulation mode (for local testing):'}</em>
+							</p>
+							<div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+								<input type="email" id="sim-email" placeholder="email@example.com" value={allowedEmails[0]} style="padding: 0.4rem; width: 260px; max-width: 100%; border: 1px solid rgb(var(--gray)); border-radius: 4px;" />
+								<button type="button" id="btn-sim-login" class="btn-signout">{isPl ? 'Symuluj Logowanie' : 'Simulate Login'}</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- STATE 2: ACCESS DENIED VIEW -->
+				<section id="view-denied" class="card denied-card hidden">
+					<h3 class="denied-badge">⛔ {isPl ? 'Brak Uprawnień (Access Denied)' : 'Access Denied: Unauthorized Account'}</h3>
+					<p>
+						{isPl ? 'Zalogowano pomyślnie przez Google jako:' : 'Successfully authenticated with Google as:'}
+						<strong id="denied-email" style="display: block; margin: 0.5rem 0; font-family: monospace; font-size: 1.1rem;"></strong>
+					</p>
+					<p>
+						{isPl 
+							? 'Ten adres e-mail nie znajduje się na liście uprawnionych administratorów tej strony.' 
+							: 'This email address is not on the list of authorized administrators for this website.'}
+					</p>
+					<div style="margin-top: 1.5rem;">
+						<button type="button" id="btn-denied-signout" class="btn-signout">
+							{isPl ? 'Wyloguj i przełącz konto' : 'Sign Out & Switch Account'}
+						</button>
+					</div>
+				</section>
+
+				<!-- STATE 3: ADMIN DASHBOARD VIEW -->
+				<div id="view-dashboard" class="hidden">
+					<div class="user-profile-bar">
+						<div class="user-info">
+							<img id="admin-user-avatar" src="" alt="Avatar" class="user-avatar" />
+							<div>
+								<strong id="admin-user-name" style="font-size: 1.1rem; display: block;"></strong>
+								<span id="admin-user-email" style="font-size: 0.9rem; color: rgb(var(--gray));"></span>
+							</div>
+						</div>
+						<div>
+							<button type="button" id="btn-admin-signout" class="btn-signout">
+								{isPl ? 'Wyloguj' : 'Sign Out'}
+							</button>
+						</div>
+					</div>
+
+					<div class="stats-grid">
+						<div class="stat-box">
+							<div class="number">{postsCount}</div>
+							<div class="label">{isPl ? 'Wpisy na blogu' : 'Blog Posts'} ({lang.toUpperCase()})</div>
+						</div>
+						<div class="stat-box">
+							<div class="number">{projectsCount}</div>
+							<div class="label">{isPl ? 'Projekty' : 'Projects'} ({lang.toUpperCase()})</div>
+						</div>
+						<div class="stat-box">
+							<div class="number">{experienceCount}</div>
+							<div class="label">{isPl ? 'Doświadczenie' : 'Experience'} ({lang.toUpperCase()})</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<h3>🔒 {isPl ? 'Autoryzowani Administratorzy' : 'Authorized Administrators'}</h3>
+						<p>{isPl ? 'Dostęp do tego panelu mają wyłącznie konta z poniższej listy:' : 'Only accounts on the following whitelist are permitted access:'}</p>
+						<ul class="email-list">
+							{allowedEmails.map((email) => (
+								<li>{email}</li>
+							))}
+						</ul>
+						<p style="font-size: 0.85rem; color: rgb(var(--gray)); margin-top: 0.75rem;">
+							{isPl 
+								? 'Aby dodać kolejne adresy, ustaw zmienną środowiskową PUBLIC_ADMIN_EMAILS (rozdzielone przecinkami).' 
+								: 'To add additional admin emails, configure the PUBLIC_ADMIN_EMAILS environment variable (comma-separated).'}
+						</p>
+					</div>
+
+					<div class="card">
+						<h3>🚀 {isPl ? 'Środowisko i Wdrożenia' : 'Deployment & Environment Status'}</h3>
+						<p>
+							<strong>Repository:</strong> <code>SzymonPucher/szymonpucher.github.io</code><br />
+							<strong>Dev Repository:</strong> <code>SzymonPucher/szymonpucher-dev</code><br />
+							<strong>Current URL:</strong> <code id="env-current-url"></code>
+						</p>
+						<div class="quick-links">
+							<a href="https://github.com/SzymonPucher/szymonpucher.github.io/actions" target="_blank" class="quick-link-btn">
+								⚙️ GitHub Actions
+							</a>
+							<a href="https://github.com/SzymonPucher/szymonpucher.github.io/settings/pages" target="_blank" class="quick-link-btn">
+								🌐 Pages Settings
+							</a>
+							<a href={withBase(`/${lang}/`)} class="quick-link-btn">
+								🏠 {isPl ? 'Strona Główna' : 'Home Page'}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+
+		<script is:inline>
+			(function () {
+				const SESSION_KEY = 'admin_auth_user_session';
+				const CUSTOM_CLIENT_ID_KEY = 'admin_google_client_id_override';
+
+				const root = document.getElementById('admin-root');
+				if (!root) return;
+
+				const allowedEmails = JSON.parse(root.getAttribute('data-allowed-emails') || '[]').map(function (e) {
+					return e.toLowerCase();
+				});
+				let configuredClientId = root.getAttribute('data-client-id') || localStorage.getItem(CUSTOM_CLIENT_ID_KEY) || '';
+
+				const viewSignin = document.getElementById('view-signin');
+				const viewDenied = document.getElementById('view-denied');
+				const viewDashboard = document.getElementById('view-dashboard');
+
+				const deniedEmailSpan = document.getElementById('denied-email');
+				const userAvatarImg = document.getElementById('admin-user-avatar');
+				const userNameSpan = document.getElementById('admin-user-name');
+				const userEmailSpan = document.getElementById('admin-user-email');
+				const envCurrentUrl = document.getElementById('env-current-url');
+				const clientIdHelper = document.getElementById('client-id-helper');
+
+				if (envCurrentUrl) {
+					envCurrentUrl.textContent = window.location.href;
+				}
+
+				function parseJwt(token) {
+					try {
+						const base64Url = token.split('.')[1];
+						const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+						const jsonPayload = decodeURIComponent(
+							atob(base64)
+								.split('')
+								.map(function (c) {
+									return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+								})
+								.join('')
+						);
+						return JSON.parse(jsonPayload);
+					} catch (e) {
+						console.error('Failed to parse JWT', e);
+						return null;
+					}
+				}
+
+				function showState(state, userData) {
+					viewSignin.classList.add('hidden');
+					viewDenied.classList.add('hidden');
+					viewDashboard.classList.add('hidden');
+
+					if (state === 'dashboard' && userData) {
+						viewDashboard.classList.remove('hidden');
+						userNameSpan.textContent = userData.name || userData.email;
+						userEmailSpan.textContent = userData.email;
+						userAvatarImg.src = userData.picture || 'https://www.gravatar.com/avatar/?d=mp';
+					} else if (state === 'denied' && userData) {
+						viewDenied.classList.remove('hidden');
+						deniedEmailSpan.textContent = userData.email;
+					} else {
+						viewSignin.classList.remove('hidden');
+					}
+				}
+
+				function checkEmailAuthorization(email) {
+					if (!email) return false;
+					return allowedEmails.indexOf(email.toLowerCase()) !== -1;
+				}
+
+				function handleUserAuthentication(userData) {
+					if (!userData || !userData.email) return;
+
+					if (checkEmailAuthorization(userData.email)) {
+						sessionStorage.setItem(SESSION_KEY, JSON.stringify(userData));
+						showState('dashboard', userData);
+					} else {
+						sessionStorage.removeItem(SESSION_KEY);
+						showState('denied', userData);
+					}
+				}
+
+				function handleGoogleCredential(response) {
+					if (!response || !response.credential) return;
+					const payload = parseJwt(response.credential);
+					if (!payload) return;
+
+					const userData = {
+						email: payload.email,
+						name: payload.name || payload.email,
+						picture: payload.picture || '',
+						exp: payload.exp || Math.floor(Date.now() / 1000) + 3600,
+					};
+					handleUserAuthentication(userData);
+				}
+
+				function signOut() {
+					sessionStorage.removeItem(SESSION_KEY);
+					if (window.google && window.google.accounts && window.google.accounts.id) {
+						window.google.accounts.id.disableAutoSelect();
+					}
+					showState('signin');
+				}
+
+				// Check existing session
+				const existingSessionStr = sessionStorage.getItem(SESSION_KEY);
+				if (existingSessionStr) {
+					try {
+						const session = JSON.parse(existingSessionStr);
+						const nowSeconds = Math.floor(Date.now() / 1000);
+						if (session && session.email && (!session.exp || session.exp > nowSeconds)) {
+							if (checkEmailAuthorization(session.email)) {
+								showState('dashboard', session);
+								setupButtons();
+								return;
+							}
+						}
+					} catch (e) {
+						sessionStorage.removeItem(SESSION_KEY);
+					}
+				}
+
+				showState('signin');
+
+				function initGoogleSignIn() {
+					if (!configuredClientId) {
+						if (clientIdHelper) clientIdHelper.classList.remove('hidden');
+						return;
+					}
+
+					if (clientIdHelper) clientIdHelper.classList.add('hidden');
+
+					if (window.google && window.google.accounts && window.google.accounts.id) {
+						try {
+							window.google.accounts.id.initialize({
+								client_id: configuredClientId,
+								callback: handleGoogleCredential,
+								auto_select: false,
+							});
+							const btnContainer = document.getElementById('g-signin-btn');
+							if (btnContainer) {
+								btnContainer.innerHTML = '';
+								window.google.accounts.id.renderButton(btnContainer, {
+									theme: 'outline',
+									size: 'large',
+									text: 'signin_with',
+									shape: 'rectangular',
+									width: 250,
+								});
+							}
+						} catch (err) {
+							console.error('Google Sign-In initialization failed:', err);
+							if (clientIdHelper) clientIdHelper.classList.remove('hidden');
+						}
+					} else {
+						setTimeout(initGoogleSignIn, 200);
+					}
+				}
+
+				function setupButtons() {
+					const btnAdminSignout = document.getElementById('btn-admin-signout');
+					if (btnAdminSignout) btnAdminSignout.onclick = signOut;
+
+					const btnDeniedSignout = document.getElementById('btn-denied-signout');
+					if (btnDeniedSignout) btnDeniedSignout.onclick = signOut;
+
+					const btnSaveClientId = document.getElementById('btn-save-client-id');
+					const inputClientId = document.getElementById('manual-client-id');
+					if (btnSaveClientId && inputClientId) {
+						if (configuredClientId) inputClientId.value = configuredClientId;
+						btnSaveClientId.onclick = function () {
+							const val = inputClientId.value.trim();
+							if (val) {
+								localStorage.setItem(CUSTOM_CLIENT_ID_KEY, val);
+								configuredClientId = val;
+								initGoogleSignIn();
+							}
+						};
+					}
+
+					const btnSimLogin = document.getElementById('btn-sim-login');
+					const simEmailInput = document.getElementById('sim-email');
+					if (btnSimLogin && simEmailInput) {
+						btnSimLogin.onclick = function () {
+							const email = simEmailInput.value.trim();
+							if (email) {
+								handleUserAuthentication({
+									email: email,
+									name: email.split('@')[0],
+									picture: '',
+									exp: Math.floor(Date.now() / 1000) + 3600,
+								});
+							}
+						};
+					}
+				}
+
+				setupButtons();
+				initGoogleSignIn();
+			})();
+		</script>
+	</body>
+</html>
