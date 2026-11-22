@@ -1,4 +1,5 @@
 export const DEFAULT_ADMIN_EMAILS = [
+	'sajmontube@gmail.com',
 	'sajmontube+github@gmail.com',
 	'spucher@interia.eu',
 ];
